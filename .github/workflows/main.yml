@@ -9,7 +9,7 @@ on:
       - "main"
   
 jobs:
-  format:
+  flutter-format:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v1
@@ -25,6 +25,7 @@ jobs:
     # Check for any formatting issues in the code.
     - run: flutter format --set-exit-if-changed .
   flutter-test:
+    needs: flutter-format
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v1
@@ -36,6 +37,7 @@ jobs:
         channel: 'beta'
     - run: flutter test
   build:
+    needs: flutter-test
     # This job will run on ubuntu virtual machine
     runs-on: ubuntu-22.04
     steps:
