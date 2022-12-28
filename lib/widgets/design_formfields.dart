@@ -1,3 +1,5 @@
+import 'package:vault/features/auth/services/validate_form.dart';
+
 import 'design.dart';
 
 class BorderedFormField extends StatelessWidget {
@@ -9,10 +11,7 @@ class BorderedFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter some text';
-        }
-        return null;
+        return validateEmail(value);
       },
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.email_outlined),
@@ -66,10 +65,7 @@ class _PwBorderedFormFieldState extends State<PwBorderedFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter some text';
-        }
-        return null;
+        return validatePw(value);
       },
       obscureText: obscureText,
       decoration: InputDecoration(
