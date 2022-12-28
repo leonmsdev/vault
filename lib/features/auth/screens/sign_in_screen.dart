@@ -13,7 +13,7 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,12 +43,14 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     const SizedBox(height: 40),
                     Form(
-                      key: formKey,
+                      key: _formKey,
                       child: Column(
                         children: <Widget>[
                           const BorderedFormField(),
                           const SizedBox(height: 25.0),
-                          const PwBorderedFormField(),
+                          const PwBorderedFormField(
+                            lable: 'Enter your password',
+                          ),
                           const SizedBox(height: 10.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -64,8 +66,9 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                           const SizedBox(height: 25.0),
                           BgTextButton(
+                            lable: 'Sign In',
                             onTap: () {
-                              if (formKey.currentState!.validate()) {
+                              if (_formKey.currentState!.validate()) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text('Processing Data'),
@@ -110,7 +113,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 15.0),
                           child: Text(
-                            ' or sign in with',
+                            'or sign in with',
                             style: TextStyle(
                               color: mediumGrey,
                             ),
@@ -124,7 +127,10 @@ class _SignInScreenState extends State<SignInScreen> {
                       ],
                     ),
                     const SizedBox(height: 30.0),
-                    const BorderIconButton(),
+                    const BorderIconButton(
+                      lable: 'Google',
+                      img: 'lib/img/google.png',
+                    ),
                   ],
                 ),
               ),

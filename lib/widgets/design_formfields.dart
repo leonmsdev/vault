@@ -1,3 +1,5 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vault/features/auth/screens/register_screen.dart';
 import 'package:vault/features/auth/services/validate_form.dart';
 
 import 'design.dart';
@@ -10,6 +12,7 @@ class BorderedFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: TextInputType.emailAddress,
       validator: (value) {
         return validateEmail(value);
       },
@@ -37,8 +40,17 @@ class BorderedFormField extends StatelessWidget {
 }
 
 class PwBorderedFormField extends StatefulWidget {
+  final String lable;
+  final bool? isFirst;
+  final bool? shouldValidate;
+  final String? value;
+
   const PwBorderedFormField({
     Key? key,
+    this.value,
+    this.isFirst,
+    this.shouldValidate,
+    required this.lable,
   }) : super(key: key);
 
   @override
@@ -63,31 +75,39 @@ class _PwBorderedFormFieldState extends State<PwBorderedFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      validator: (value) {
-        return validatePw(value);
-      },
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.lock_outline),
-        labelText: 'Enter your password',
-        labelStyle: const TextStyle(fontSize: 14, color: Colors.black),
-        isDense: true,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: greyBorderColor,
+    return Consumer(
+      builder: (context, ref, child) {
+        return TextFormField(
+          validator: (value) {
+            if (widget.isFirst == true) {
+              ref.read(valueProvider.notifier).state = value!;
+            }
+            return validatePw(value, ref.watch(valueProvider), widget.isFirst,
+                widget.shouldValidate);
+          },
+          obscureText: obscureText,
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Icons.lock_outline),
+            labelText: widget.lable,
+            labelStyle: const TextStyle(fontSize: 14, color: Colors.black),
+            isDense: true,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(
+                color: greyBorderColor,
+              ),
+            ),
+            suffixIcon: GestureDetector(
+              onTap: changeIcon,
+              child: currentIcon,
+            ),
           ),
-        ),
-        suffixIcon: GestureDetector(
-          onTap: changeIcon,
-          child: currentIcon,
-        ),
-      ),
+        );
+      },
     );
   }
 }
