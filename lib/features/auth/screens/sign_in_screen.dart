@@ -1,4 +1,6 @@
 import 'dart:developer' as devtools show log;
+import 'package:go_router/go_router.dart';
+
 import '../../../widgets/design.dart';
 import '../../../widgets/styles/text_styles.dart';
 import '../widgets/transparent_logo.dart';
@@ -73,22 +75,25 @@ class _SignInScreenState extends State<SignInScreen> {
                             },
                           ),
                           const SizedBox(height: 10.0),
-                          RichText(
-                            text: const TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Dont have an account, ',
-                                  style: TextStyle(
-                                    color: mediumGrey,
+                          GestureDetector(
+                            onTap: () => context.go('/register'),
+                            child: RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Dont have an account, ',
+                                    style: TextStyle(
+                                      color: mediumGrey,
+                                    ),
                                   ),
-                                ),
-                                TextSpan(
-                                  text: 'sign up for free',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                )
-                              ],
+                                  TextSpan(
+                                    text: 'sign up for free',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -120,7 +125,6 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     const SizedBox(height: 30.0),
                     const BorderIconButton(),
-                    DesignClickableText(text: 'Hello', onPressed: () {}),
                   ],
                 ),
               ),
