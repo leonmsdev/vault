@@ -15,10 +15,14 @@ String? validateEmail(String? value) {
   }
 }
 
-String? validatePw(String? value) {
+String? validatePw(
+    String? value, String? input, bool? isFirst, bool? shouldValidate) {
+  if (shouldValidate == true && value != input) {
+    return 'Password does not match';
+  }
   if (value == null || value.isEmpty) {
     return 'Please enter your password';
-  } else if (value.length <= 7) {
+  } else if (value.length < 7) {
     return 'Please enter a valid password';
   } else {
     return null;

@@ -27,8 +27,9 @@ class DesignClickableText extends StatelessWidget {
 
 class BgTextButton extends StatelessWidget {
   final VoidCallback onTap;
+  final String lable;
 
-  const BgTextButton({super.key, required this.onTap});
+  const BgTextButton({super.key, required this.lable, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class BgTextButton extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            'Sign In',
+            lable,
             style: TextStyle(
               color: white,
               fontWeight: FontWeight.bold,
@@ -55,7 +56,10 @@ class BgTextButton extends StatelessWidget {
 }
 
 class BorderIconButton extends StatelessWidget {
-  const BorderIconButton({super.key});
+  final String img;
+  final String lable;
+
+  const BorderIconButton({super.key, required this.lable, required this.img});
 
   @override
   Widget build(BuildContext context) {
@@ -81,15 +85,13 @@ class BorderIconButton extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: 27,
-                    child: Image.asset('lib/img/google.png'),
+                    child: Image.asset(img),
                   ),
                 ],
               ),
             ),
-            const Center(
-              child: Text(
-                'Sign In',
-              ),
+            Center(
+              child: Text(lable),
             ),
           ],
         ),
