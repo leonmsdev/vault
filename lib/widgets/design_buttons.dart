@@ -1,4 +1,4 @@
-import '../styles/design.dart';
+import 'design.dart';
 
 class DesignClickableText extends StatelessWidget {
   final String? text;
@@ -26,9 +26,9 @@ class DesignClickableText extends StatelessWidget {
 }
 
 class BgTextButton extends StatelessWidget {
-  VoidCallback onTap;
+  final VoidCallback onTap;
 
-  BgTextButton({super.key, required this.onTap});
+  const BgTextButton({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

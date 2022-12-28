@@ -1,6 +1,6 @@
-import 'package:vault/designs/design.dart';
-import 'package:vault/designs/text_styles.dart';
 import 'dart:developer' as devtools show log;
+import '../../../widgets/design.dart';
+import '../../../widgets/styles/text_styles.dart';
 import '../widgets/transparent_logo.dart';
 
 class SignInScreen extends StatefulWidget {

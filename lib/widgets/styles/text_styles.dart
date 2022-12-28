@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vault/designs/colors.dart';
+
+import 'colors.dart';
 
 const TextStyle mediumHeading = TextStyle(
   fontSize: 24,

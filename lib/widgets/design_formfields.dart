@@ -1,4 +1,4 @@
-import '../design.dart';
+import 'design.dart';
 
 class BorderedFormField extends StatelessWidget {
   const BorderedFormField({
