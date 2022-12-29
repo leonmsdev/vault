@@ -24,7 +24,9 @@ class OtpForm extends StatelessWidget {
               OtpTextFormField(),
               OtpTextFormField(),
               OtpTextFormField(),
-              OtpTextFormField(),
+              OtpTextFormField(
+                nextFocus: false,
+              ),
             ],
           ),
           const SizedBox(
@@ -51,9 +53,8 @@ class OtpForm extends StatelessWidget {
 }
 
 class OtpTextFormField extends StatelessWidget {
-  const OtpTextFormField({
-    Key? key,
-  }) : super(key: key);
+  final bool? nextFocus;
+  const OtpTextFormField({Key? key, this.nextFocus}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,7 @@ class OtpTextFormField extends StatelessWidget {
       width: 48,
       child: TextFormField(
         onChanged: (value) {
-          if (value.length == 1) {
+          if (value.length == 1 && nextFocus == null) {
             FocusScope.of(context).nextFocus();
           }
         },
