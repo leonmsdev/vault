@@ -152,9 +152,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ],
                         ),
                         const SizedBox(height: 30.0),
-                        const BorderIconButton(
+                        BorderIconButton(
                           lable: 'Google',
                           img: 'lib/img/google.png',
+                          onTap: () => context.go('/register/master-key'),
                         ),
                       ],
                     ),

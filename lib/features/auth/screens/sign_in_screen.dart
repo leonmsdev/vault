@@ -127,9 +127,10 @@ class _SignInScreenState extends State<SignInScreen> {
                       ],
                     ),
                     const SizedBox(height: 30.0),
-                    const BorderIconButton(
+                    BorderIconButton(
                       lable: 'Google',
                       img: 'lib/img/google.png',
+                      onTap: () {},
                     ),
                   ],
                 ),
