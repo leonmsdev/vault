@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:vault/widgets/design.dart';
 import 'package:vault/widgets/styles/text_styles.dart';
 
+import '../services/firebase_auth.dart';
 import '../widgets/widgets.dart';
 
 final valueProvider = StateProvider<String>((ref) => 'Hello');
@@ -16,8 +17,13 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final pwController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    UserAuth auth = UserAuth();
+
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -65,7 +71,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           key: _formKey,
                           child: Column(
                             children: <Widget>[
-                              const BorderedFormField(),
+                              BorderedFormField(
+                                controller: emailController,
+                              ),
                               const SizedBox(height: 25.0),
                               Consumer(
                                 builder: (context, ref, child) {
@@ -82,11 +90,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               Consumer(
                                 builder: (context, ref, child) {
                                   return PwBorderedFormField(
-                                    value: ref.watch(valueProvider),
-                                    lable: 'Repeat your password',
-                                    isFirst: false,
-                                    shouldValidate: true,
-                                  );
+                                      value: ref.watch(valueProvider),
+                                      lable: 'Repeat your password',
+                                      isFirst: false,
+                                      shouldValidate: true,
+                                      controller: pwController);
                                 },
                               ),
                               const SizedBox(height: 35.0),
@@ -94,10 +102,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 lable: 'Register Now',
                                 onTap: () {
                                   if (_formKey.currentState!.validate()) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Processing Data'),
-                                      ),
+                                    auth.registerUser(
+                                      emailController.text,
+                                      pwController.text,
                                     );
                                   }
                                 },
