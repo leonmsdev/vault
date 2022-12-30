@@ -5,13 +5,16 @@ import 'package:vault/features/auth/services/validate_form.dart';
 import 'design.dart';
 
 class BorderedFormField extends StatelessWidget {
+  final TextEditingController controller;
   const BorderedFormField({
+    required this.controller,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       keyboardType: TextInputType.emailAddress,
       validator: (value) {
         return validateEmail(value);
@@ -44,12 +47,14 @@ class PwBorderedFormField extends StatefulWidget {
   final bool? isFirst;
   final bool? shouldValidate;
   final String? value;
+  final TextEditingController? controller;
 
   const PwBorderedFormField({
     Key? key,
     this.value,
     this.isFirst,
     this.shouldValidate,
+    this.controller,
     required this.lable,
   }) : super(key: key);
 
@@ -78,6 +83,7 @@ class _PwBorderedFormFieldState extends State<PwBorderedFormField> {
     return Consumer(
       builder: (context, ref, child) {
         return TextFormField(
+          controller: widget.controller,
           validator: (value) {
             if (widget.isFirst == true) {
               ref.read(valueProvider.notifier).state = value!;

@@ -1,5 +1,6 @@
 import 'dart:developer' as devtools show log;
 import 'package:go_router/go_router.dart';
+import 'package:vault/features/auth/services/firebase_auth.dart';
 
 import '../../../widgets/design.dart';
 import '../../../widgets/styles/text_styles.dart';
@@ -13,6 +14,7 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,9 @@ class _SignInScreenState extends State<SignInScreen> {
                       key: _formKey,
                       child: Column(
                         children: <Widget>[
-                          const BorderedFormField(),
+                          BorderedFormField(
+                            controller: emailController,
+                          ),
                           const SizedBox(height: 25.0),
                           const PwBorderedFormField(
                             lable: 'Enter your password',
@@ -130,7 +134,10 @@ class _SignInScreenState extends State<SignInScreen> {
                     BorderIconButton(
                       lable: 'Google',
                       img: 'lib/img/google.png',
-                      onTap: () {},
+                      onTap: () {
+                        UserAuth user = UserAuth();
+                        user.checkUser();
+                      },
                     ),
                   ],
                 ),
