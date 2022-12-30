@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "352914769563",
+    "project_id": "protag-vault",
+    "storage_bucket": "protag-vault.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:352914769563:android:cd975d39e921be5f5b283e",
+        "android_client_info": {
+          "package_name": "com.example.vault"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "352914769563-anrbkq2d2p37jic0ic5g4qqm57vkvakc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJkj8dI_IeRewBFa8guYIgM08lihcB1Ig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "352914769563-anrbkq2d2p37jic0ic5g4qqm57vkvakc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "352914769563-1ddk7r83ghiaklo8sq90mb7pvrek1k6t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vault"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
