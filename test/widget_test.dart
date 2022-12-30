@@ -1,4 +1,5 @@
-import 'dart:developer' as devtools show log;
+import 'package:flutter_test/flutter_test.dart';
+import 'package:vault/widgets/design.dart';
 // This is a basic Flutter widget test.
 //
 // To perform an interaction with a widget in your test, use the WidgetTester
@@ -7,5 +8,18 @@ import 'dart:developer' as devtools show log;
 // tree, read text, and verify that the values of widget properties are correct.
 
 void main() {
-  devtools.log('Test works');
+  testWidgets("Flutter Widget Test", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: BgTextButton(
+          lable: 'T',
+          onTap: () {},
+        ),
+      ),
+    );
+
+    final lableFinder = find.text('T');
+
+    expect(lableFinder, findsOneWidget);
+  });
 }
