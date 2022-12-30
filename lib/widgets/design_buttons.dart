@@ -1,30 +1,5 @@
 import 'design.dart';
 
-class DesignClickableText extends StatelessWidget {
-  final String? text;
-  final EdgeInsets? padding;
-  final TextStyle? textStyle;
-  final VoidCallback? onPressed;
-
-  const DesignClickableText(
-      {super.key,
-      @required this.text,
-      @required this.onPressed,
-      this.textStyle,
-      this.padding});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        padding: padding,
-        child: Text(text.toString(), style: textStyle),
-      ),
-    );
-  }
-}
-
 class BgTextButton extends StatelessWidget {
   final VoidCallback onTap;
   final String lable;
@@ -58,13 +33,15 @@ class BgTextButton extends StatelessWidget {
 class BorderIconButton extends StatelessWidget {
   final String img;
   final String lable;
+  final VoidCallback onTap;
 
-  const BorderIconButton({super.key, required this.lable, required this.img});
+  const BorderIconButton(
+      {super.key, required this.lable, required this.img, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         width: double.infinity,
         height: 45,
