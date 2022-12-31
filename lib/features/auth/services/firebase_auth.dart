@@ -16,8 +16,10 @@ class UserAuth {
 
   registerUser(String email, String password) async {
     try {
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         devtool.log('The password provided is too weak.');
@@ -28,6 +30,21 @@ class UserAuth {
       }
     } catch (e) {
       devtool.log(e.toString());
+    }
+  }
+
+  signIn(String email, String password) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        devtool.log('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        devtool.log('Wrong password provided for that user.');
+      }
     }
   }
 }

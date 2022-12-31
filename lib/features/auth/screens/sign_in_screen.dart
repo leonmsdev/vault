@@ -15,9 +15,11 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final emailController = TextEditingController();
+  final pwController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    UserAuth auth = UserAuth();
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -52,7 +54,8 @@ class _SignInScreenState extends State<SignInScreen> {
                             controller: emailController,
                           ),
                           const SizedBox(height: 25.0),
-                          const PwBorderedFormField(
+                          PwBorderedFormField(
+                            controller: pwController,
                             lable: 'Enter your password',
                           ),
                           const SizedBox(height: 10.0),
@@ -73,11 +76,8 @@ class _SignInScreenState extends State<SignInScreen> {
                             lable: 'Sign In',
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Processing Data'),
-                                  ),
-                                );
+                                auth.signIn(
+                                    emailController.text, pwController.text);
                               }
                             },
                           ),
