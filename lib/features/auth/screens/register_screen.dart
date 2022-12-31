@@ -100,12 +100,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               const SizedBox(height: 35.0),
                               BgTextButton(
                                 lable: 'Register Now',
-                                onTap: () {
+                                onTap: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    auth.registerUser(
-                                      emailController.text,
-                                      pwController.text,
-                                    );
+                                    if (await auth.registerUser(
+                                          emailController.text,
+                                          pwController.text,
+                                        ) ==
+                                        'email-already-in-use') {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          backgroundColor: errorRed,
+                                          content: ErrorSnackBar(
+                                              text:
+                                                  'The account already exists for that email.'),
+                                        ),
+                                      );
+                                    }
                                   }
                                 },
                               ),
