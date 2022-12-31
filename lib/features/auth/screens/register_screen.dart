@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vault/widgets/design.dart';
 import 'package:vault/widgets/styles/text_styles.dart';
+import 'dart:developer' as devtools show log;
 
 import '../services/firebase_auth.dart';
 import '../widgets/widgets.dart';
@@ -107,15 +108,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           pwController.text,
                                         ) ==
                                         'email-already-in-use') {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          backgroundColor: errorRed,
-                                          content: ErrorSnackBar(
-                                              text:
-                                                  'The account already exists for that email.'),
-                                        ),
-                                      );
+                                      devtools
+                                          .log('This email already exists.');
                                     }
                                   }
                                 },
