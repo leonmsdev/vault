@@ -23,6 +23,8 @@ class UserAuth {
         devtool.log('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
         devtool.log('The account already exists for that email.');
+
+        return e.code.toString();
       }
     } catch (e) {
       devtool.log(e.toString());

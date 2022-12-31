@@ -8,3 +8,5 @@ const Color greyTextColor = Color(0xFFADADAD);
 const Color black = Color(0xFF000000);
 const Color ligthBlueGrey = Color(0xFFF4F5FC);
 const Color darkGrey = Color(0xFF7A7E83);
+
+const Color errorRed = Color.fromARGB(0, 220, 53, 64);

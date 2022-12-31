@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vault/widgets/design.dart';
 import 'package:vault/widgets/styles/text_styles.dart';
+import 'dart:developer' as devtools show log;
 
 import '../services/firebase_auth.dart';
 import '../widgets/widgets.dart';
@@ -100,12 +101,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               const SizedBox(height: 35.0),
                               BgTextButton(
                                 lable: 'Register Now',
-                                onTap: () {
+                                onTap: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    auth.registerUser(
-                                      emailController.text,
-                                      pwController.text,
-                                    );
+                                    if (await auth.registerUser(
+                                          emailController.text,
+                                          pwController.text,
+                                        ) ==
+                                        'email-already-in-use') {
+                                      devtools
+                                          .log('This email already exists.');
+                                    }
                                   }
                                 },
                               ),
