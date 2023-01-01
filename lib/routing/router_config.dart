@@ -21,14 +21,12 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: 'register',
           builder: (context, state) => const RegisterScreen(),
-          routes: [
-            GoRoute(
-              path: 'master-key',
-              builder: (context, state) => const MasterKey(),
-            ),
-          ],
         ),
       ],
+    ),
+    GoRoute(
+      path: '/master-key',
+      builder: (context, state) => const MasterKey(),
     ),
     GoRoute(
       path: '/home',

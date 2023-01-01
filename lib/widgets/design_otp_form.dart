@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'dart:developer' as devlogs show log;
 
 import 'design.dart';
 
@@ -35,13 +34,18 @@ class OtpForm extends StatelessWidget {
           BgTextButton(
               lable: 'Enter',
               onTap: () {
-                context.go('/');
                 masterKeyInputs.clear();
                 formKey.currentState?.save();
-                for (var element in masterKeyInputs) {
-                  if (element == null) {
-                    devlogs.log('Error');
-                  }
+                if (masterKeyInputs.toString() == '[1, 2, 3, 4]') {
+                  context.go('/home');
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    generateSnackbar(
+                      text: 'Your input is wrong, please try again.',
+                      color: snackBarRed,
+                      icon: Icons.error_outline,
+                    ),
+                  );
                 }
               }),
         ],
@@ -92,13 +96,8 @@ class OtpTextFormField extends StatelessWidget {
           if (masterKeyInputs.length == 4) {
             masterKeyInputs.clear();
           }
-          masterKeyInputs.add(value);
 
-          if (masterKeyInputs == [0, 1, 2, 3]) {
-            devlogs.log('valid');
-          } else {
-            devlogs.log('not valid');
-          }
+          masterKeyInputs.add(value);
         },
         style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         keyboardType: TextInputType.number,
