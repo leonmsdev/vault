@@ -11,7 +11,7 @@ class BgTextButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 45,
+        height: 50,
         decoration: BoxDecoration(
           color: Colors.black,
           borderRadius: BorderRadius.circular(12),
@@ -44,7 +44,7 @@ class BorderIconButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        height: 45,
+        height: 50,
         decoration: BoxDecoration(
           border: Border.all(
             width: 0.5,

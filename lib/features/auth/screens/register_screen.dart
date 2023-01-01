@@ -3,8 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:vault/widgets/design.dart';
 import 'package:vault/widgets/styles/text_styles.dart';
 import 'dart:developer' as devtools show log;
-
-import '../services/firebase_auth.dart';
+import '../services/auth_service.dart';
 import '../widgets/widgets.dart';
 
 final valueProvider = StateProvider<String>((ref) => 'Hello');
@@ -18,13 +17,25 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final pwController = TextEditingController();
+  late final TextEditingController _emailController;
+  late final TextEditingController _pwController;
+
+  @override
+  void initState() {
+    _emailController = TextEditingController();
+    _pwController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _pwController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    UserAuth auth = UserAuth();
-
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -73,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           child: Column(
                             children: <Widget>[
                               BorderedFormField(
-                                controller: emailController,
+                                controller: _emailController,
                               ),
                               const SizedBox(height: 25.0),
                               Consumer(
@@ -95,7 +106,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       lable: 'Repeat your password',
                                       isFirst: false,
                                       shouldValidate: true,
-                                      controller: pwController);
+                                      controller: _pwController);
                                 },
                               ),
                               const SizedBox(height: 35.0),
@@ -103,13 +114,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 lable: 'Register Now',
                                 onTap: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    if (await auth.registerUser(
-                                          emailController.text,
-                                          pwController.text,
-                                        ) ==
-                                        'email-already-in-use') {
-                                      devtools
-                                          .log('This email already exists.');
+                                    final email = _emailController.text;
+                                    final password = _pwController.text;
+
+                                    try {
+                                      await AuthService.firebase().registerUser(
+                                        email: email,
+                                        password: password,
+                                      );
+                                    } catch (e) {
+                                      devtools.log(e.toString());
                                     }
                                   }
                                 },

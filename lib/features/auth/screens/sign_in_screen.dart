@@ -1,6 +1,6 @@
 import 'dart:developer' as devtools show log;
 import 'package:go_router/go_router.dart';
-import 'package:vault/features/auth/services/firebase_auth.dart';
+import 'package:vault/features/auth/services/auth_service.dart';
 
 import '../../../widgets/design.dart';
 import '../../../widgets/styles/text_styles.dart';
@@ -14,12 +14,27 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final emailController = TextEditingController();
-  final pwController = TextEditingController();
+  late final TextEditingController _emailController;
+  late final TextEditingController _pwController;
+
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    _emailController = TextEditingController();
+    _pwController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _pwController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    UserAuth auth = UserAuth();
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -51,11 +66,11 @@ class _SignInScreenState extends State<SignInScreen> {
                       child: Column(
                         children: <Widget>[
                           BorderedFormField(
-                            controller: emailController,
+                            controller: _emailController,
                           ),
                           const SizedBox(height: 25.0),
                           PwBorderedFormField(
-                            controller: pwController,
+                            controller: _pwController,
                             lable: 'Enter your password',
                           ),
                           const SizedBox(height: 10.0),
@@ -74,16 +89,39 @@ class _SignInScreenState extends State<SignInScreen> {
                           const SizedBox(height: 25.0),
                           BgTextButton(
                             lable: 'Sign In',
-                            onTap: () {
+                            onTap: () async {
                               if (_formKey.currentState!.validate()) {
-                                auth.signIn(
-                                    emailController.text, pwController.text);
+                                final email = _emailController.text;
+                                final password = _pwController.text;
+
+                                try {
+                                  await AuthService.firebase()
+                                      .signIn(email: email, password: password);
+                                  if (!mounted) return;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      backgroundColor:
+                                          Colors.greenAccent.shade400,
+                                      content: const SizedBox(
+                                        height: 18,
+                                        child: Center(
+                                          child: Text(
+                                            'Logged in',
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                  context.go('/home');
+                                } catch (e) {
+                                  devtools.log('$e');
+                                }
                               }
                             },
                           ),
                           const SizedBox(height: 10.0),
                           GestureDetector(
-                            onTap: () => context.go('/register'),
+                            onTap: () => context.go('/sign-in/register'),
                             child: RichText(
                               text: const TextSpan(
                                 children: [
@@ -134,9 +172,12 @@ class _SignInScreenState extends State<SignInScreen> {
                     BorderIconButton(
                       lable: 'Google',
                       img: 'lib/img/google.png',
-                      onTap: () {
-                        UserAuth user = UserAuth();
-                        user.checkUser();
+                      onTap: () async {
+                        if (AuthService.firebase().currentUser != null) {
+                          devtools.log('logged in');
+                        } else {
+                          devtools.log('logged out');
+                        }
                       },
                     ),
                   ],
