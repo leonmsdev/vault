@@ -4,7 +4,7 @@ import 'dart:developer' as devlogs show log;
 
 import 'design.dart';
 
-final List firstMasterKeyInputs = [];
+final List masterKeyInputs = [];
 
 class OtpForm extends StatelessWidget {
   const OtpForm({super.key});
@@ -36,14 +36,12 @@ class OtpForm extends StatelessWidget {
               lable: 'Enter',
               onTap: () {
                 context.go('/');
-                firstMasterKeyInputs.clear();
+                masterKeyInputs.clear();
                 formKey.currentState?.save();
-                for (var element in firstMasterKeyInputs) {
+                for (var element in masterKeyInputs) {
                   if (element == null) {
                     devlogs.log('Error');
-                  } else {}
-                  devlogs.log('valid');
-                  devlogs.log(firstMasterKeyInputs.toString());
+                  }
                 }
               }),
         ],
@@ -91,10 +89,16 @@ class OtpTextFormField extends StatelessWidget {
               ),
             )),
         onSaved: (value) {
-          if (firstMasterKeyInputs.length == 4) {
-            firstMasterKeyInputs.clear();
+          if (masterKeyInputs.length == 4) {
+            masterKeyInputs.clear();
           }
-          firstMasterKeyInputs.add(value);
+          masterKeyInputs.add(value);
+
+          if (masterKeyInputs == [0, 1, 2, 3]) {
+            devlogs.log('valid');
+          } else {
+            devlogs.log('not valid');
+          }
         },
         style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         keyboardType: TextInputType.number,
