@@ -99,20 +99,12 @@ class _SignInScreenState extends State<SignInScreen> {
                                       .signIn(email: email, password: password);
                                   if (!mounted) return;
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      backgroundColor:
-                                          Colors.greenAccent.shade400,
-                                      content: const SizedBox(
-                                        height: 18,
-                                        child: Center(
-                                          child: Text(
-                                            'Logged in',
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                    generateSnackbar(
+                                        text: 'You are successfuly signed in.',
+                                        color: snackBarGreen,
+                                        icon: Icons.verified),
                                   );
-                                  context.go('/home');
+                                  context.go('/master-key');
                                 } catch (e) {
                                   devtools.log('$e');
                                 }

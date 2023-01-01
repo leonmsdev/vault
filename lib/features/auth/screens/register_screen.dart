@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vault/widgets/design.dart';
 import 'package:vault/widgets/styles/text_styles.dart';
-import 'dart:developer' as devtools show log;
 import '../services/auth_service.dart';
 import '../widgets/widgets.dart';
 
@@ -51,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Padding(
                         padding: const EdgeInsets.only(left: 25.0),
                         child: GestureDetector(
-                          onTap: () => context.go('/'),
+                          onTap: () => context.go('/sign-in'),
                           child: const Icon(
                             Icons.arrow_back_sharp,
                             color: Colors.white,
@@ -122,15 +121,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         email: email,
                                         password: password,
                                       );
+                                      if (!mounted) return;
+                                      context.go('/sign-in');
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        generateSnackbar(
+                                            text:
+                                                'Registered, please sign in with your user.',
+                                            color: snackBarGreen,
+                                            icon: Icons.verified),
+                                      );
                                     } catch (e) {
-                                      devtools.log(e.toString());
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        generateSnackbar(
+                                            text: 'An Error occured',
+                                            color: snackBarRed,
+                                            icon: Icons.error_outline),
+                                      );
                                     }
                                   }
                                 },
                               ),
                               const SizedBox(height: 10.0),
                               GestureDetector(
-                                onTap: () => context.go('/'),
+                                onTap: () => context.go('/sign-in'),
                                 child: RichText(
                                   text: const TextSpan(
                                     children: [
@@ -181,7 +196,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         BorderIconButton(
                           lable: 'Google',
                           img: 'lib/img/google.png',
-                          onTap: () => context.go('/register/master-key'),
+                          onTap: () {},
                         ),
                       ],
                     ),

@@ -23,6 +23,17 @@ class HomeScreen extends StatelessWidget {
                   AuthService.firebase().signOut();
                   context.go('/sign-in');
                 },
+              ),
+              TextButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    generateSnackbar(
+                        text: 'An Error occured',
+                        color: snackBarRed,
+                        icon: Icons.error_outline),
+                  );
+                },
+                child: const Text('SnackBar'),
               )
             ],
           ),

@@ -30,6 +30,39 @@ class BgTextButton extends StatelessWidget {
   }
 }
 
+class LableButton extends StatelessWidget {
+  final VoidCallback onTap;
+  final String lable;
+
+  const LableButton({super.key, required this.lable, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 0.5,
+            color: mediumGrey,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Center(
+          child: Text(
+            lable,
+            style: const TextStyle(
+              color: black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class BorderIconButton extends StatelessWidget {
   final String img;
   final String lable;
