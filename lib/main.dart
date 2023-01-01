@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vault/features/auth/screens/master_key_screen.dart';
 import 'package:vault/features/auth/screens/sign_in_screen.dart';
 import 'package:vault/features/auth/services/auth_service.dart';
-import 'package:vault/features/home/screens/home_screen.dart';
 import 'package:vault/routing/router_config.dart';
 import 'firebase_options.dart';
 
