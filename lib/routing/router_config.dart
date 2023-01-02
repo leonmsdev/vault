@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:vault/features/auth/screens/master_key_screen.dart';
 import 'package:vault/features/auth/screens/register_screen.dart';
 import 'package:vault/features/auth/screens/sign_in_screen.dart';
+import 'package:vault/features/auth/screens/verification_screen.dart';
 import 'package:vault/features/home/screens/home_screen.dart';
 import 'package:vault/main.dart';
 
@@ -27,6 +28,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/master-key',
       builder: (context, state) => const MasterKey(),
+    ),
+    GoRoute(
+      path: '/verify-email',
+      builder: (context, state) => const VerifyEmail(),
     ),
     GoRoute(
       path: '/home',

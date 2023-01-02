@@ -1,4 +1,3 @@
-import 'dart:developer' as devtools show log;
 import 'package:go_router/go_router.dart';
 import 'package:vault/features/auth/services/auth_service.dart';
 import 'package:vault/widgets/design_pw_reset.dart';
@@ -98,8 +97,11 @@ class _SignInScreenState extends State<SignInScreen> {
                                 final password = _pwController.text;
 
                                 try {
-                                  await AuthService.firebase()
-                                      .signIn(email: email, password: password);
+                                  await AuthService.firebase().signIn(
+                                    email: email,
+                                    password: password,
+                                  );
+
                                   if (!mounted) return;
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     generateSnackbar(
@@ -107,7 +109,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                         color: snackBarGreen,
                                         icon: Icons.verified),
                                   );
-                                  context.go('/master-key');
+                                  context.go('verify-email');
                                 } catch (e) {
                                   generateSnackbar(
                                       text: 'An error occured',
@@ -170,13 +172,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     BorderIconButton(
                       lable: 'Google',
                       img: 'lib/img/google.png',
-                      onTap: () async {
-                        if (AuthService.firebase().currentUser != null) {
-                          devtools.log('logged in');
-                        } else {
-                          devtools.log('logged out');
-                        }
-                      },
+                      onTap: () async {},
                     ),
                   ],
                 ),
