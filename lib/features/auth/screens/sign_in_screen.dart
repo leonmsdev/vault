@@ -106,7 +106,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                   );
                                   context.go('/master-key');
                                 } catch (e) {
-                                  devtools.log('$e');
+                                  generateSnackbar(
+                                      text: 'An error occured',
+                                      color: snackBarRed,
+                                      icon: Icons.error_outline);
                                 }
                               }
                             },

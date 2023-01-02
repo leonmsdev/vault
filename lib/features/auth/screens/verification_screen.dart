@@ -2,9 +2,9 @@ import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vault/features/auth/services/auth_service.dart';
 import 'package:vault/widgets/design.dart';
+import 'package:vault/widgets/styles/text_styles.dart';
 
-import '../../../widgets/styles/text_styles.dart';
-import '../widgets/transparent_logo.dart';
+import '../widgets/widgets.dart';
 
 class MasterKey extends StatelessWidget {
   const MasterKey({super.key});
@@ -27,7 +27,7 @@ class MasterKey extends StatelessWidget {
                   ),
                   const SizedBox(height: 25),
                   const Text(
-                    'Welcome back',
+                    'Welcome at Vault',
                     style: mediumHeading,
                   ),
                   const SizedBox(height: 40),
@@ -51,18 +51,20 @@ class MasterKey extends StatelessWidget {
                             ),
                             const SizedBox(height: 5),
                             const Text(
-                              'Enter your Master-Key',
+                              'Verify your email address',
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 10),
                             const Text(
-                              'Please enter your Master-Key to enter your personal vault.',
+                              'We send you an email with instructions on how to verify your email address.',
                               textAlign: TextAlign.center,
                               style: TextStyle(color: darkGrey),
                             ),
                             const SizedBox(height: 25),
-                            const OtpForm(),
+                            BgTextButton(
+                                lable: 'Resend email verification',
+                                onTap: () {})
                           ],
                         ),
                       ),
