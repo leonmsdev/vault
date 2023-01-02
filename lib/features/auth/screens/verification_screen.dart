@@ -102,7 +102,6 @@ class VerifyEmail extends StatelessWidget {
                             AuthService.firebase().signOut();
                             context.go('/sign-in');
                           }),
-                      TextButton(onPressed: () {}, child: const Text('hello'))
                     ],
                   ),
                 ],

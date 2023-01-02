@@ -97,10 +97,22 @@ class _SignInScreenState extends State<SignInScreen> {
                                 final password = _pwController.text;
 
                                 try {
-                                  await AuthService.firebase().signIn(
+                                  await AuthService.firebase()
+                                      .signIn(
                                     email: email,
                                     password: password,
-                                  );
+                                  )
+                                      .whenComplete(() async {
+                                    var user =
+                                        AuthService.firebase().currentUser;
+                                    if (user != null) {
+                                      if (user.isEmailVerified) {
+                                        context.go('/master-key');
+                                      } else if (!user.isEmailVerified) {
+                                        context.go('/verify-email');
+                                      }
+                                    }
+                                  });
 
                                   if (!mounted) return;
                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -109,7 +121,6 @@ class _SignInScreenState extends State<SignInScreen> {
                                         color: snackBarGreen,
                                         icon: Icons.verified),
                                   );
-                                  context.go('verify-email');
                                 } catch (e) {
                                   generateSnackbar(
                                       text: 'An error occured',
