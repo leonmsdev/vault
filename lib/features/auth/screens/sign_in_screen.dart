@@ -1,6 +1,7 @@
 import 'dart:developer' as devtools show log;
 import 'package:go_router/go_router.dart';
 import 'package:vault/features/auth/services/auth_service.dart';
+import 'package:vault/widgets/design_pw_reset.dart';
 
 import '../../../widgets/design.dart';
 import '../../../widgets/styles/text_styles.dart';
@@ -78,7 +79,9 @@ class _SignInScreenState extends State<SignInScreen> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               GestureDetector(
-                                onTap: () => devtools.log('Forgot Password'),
+                                onTap: () async {
+                                  showPasswordResetnDialog(context);
+                                },
                                 child: const Text(
                                   'Forgot Password?',
                                   textAlign: TextAlign.right,

@@ -5,7 +5,7 @@ import 'package:vault/widgets/styles/text_styles.dart';
 import '../services/auth_service.dart';
 import '../widgets/widgets.dart';
 
-final valueProvider = StateProvider<String>((ref) => 'Hello');
+final valueProvider = StateProvider<String>((ref) => '');
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
