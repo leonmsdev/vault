@@ -25,6 +25,9 @@ class AuthService implements AuthProvider {
   AuthUser? get currentUser => provider.currentUser;
 
   @override
+  Future<void> sendEmailVerification() => provider.sendEmailVerification();
+
+  @override
   Future<AuthUser> signIn({
     required String email,
     required String password,
@@ -39,4 +42,8 @@ class AuthService implements AuthProvider {
 
   @override
   String? get email => provider.email;
+
+  @override
+  Future<void> resetPassword({required String email}) =>
+      provider.resetPassword(email: email);
 }
