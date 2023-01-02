@@ -16,7 +16,10 @@ Future showPasswordResetnDialog(BuildContext context) {
           borderRadius: BorderRadius.circular(25),
         ),
         title: const Center(
-          child: Text('Reset your password'),
+          child: Text(
+            'Reset your password',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
         content: const ForgotPassword(),
       );
@@ -51,12 +54,17 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 311,
+      height: 260,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            'Enter the email address you used when you joined and we’ll send you instructions to reset your password. \n \nFor security reasons, we do NOT store your password. So rest assured that we will never send your password via email.',
-            style: TextStyle(fontSize: 12),
+            'Please enter your email address and we’ll send you instructions to reset your password. \n \nFor security reasons, we do NOT store your password.This means we will never send your password via email.',
+            style: TextStyle(fontSize: 14),
+          ),
+          const SizedBox(
+            height: 20,
           ),
           BorderedFormField(
             controller: _emailController,
@@ -72,6 +80,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               try {
                 AuthService.firebase().resetPassword(email: email);
                 Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  generateSnackbar(
+                      text: 'Password reset is send to your email.',
+                      color: snackBarGreen,
+                      icon: Icons.verified),
+                );
               } catch (e) {
                 devtools.log('loool');
               }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vault/features/auth/screens/master_key_screen.dart';
 import 'package:vault/features/auth/screens/sign_in_screen.dart';
+import 'package:vault/features/auth/screens/verification_screen.dart';
 import 'package:vault/features/auth/services/auth_service.dart';
 import 'package:vault/routing/router_config.dart';
 import 'firebase_options.dart';
@@ -49,10 +50,15 @@ class MainScreen extends StatelessWidget {
           case ConnectionState.done:
             final user = AuthService.firebase().currentUser;
             if (user != null) {
-              return const MasterKey();
+              if (user.isEmailVerified) {
+                return const MasterKey();
+              } else {
+                return const VerifyEmail();
+              }
             } else {
               return const SignInScreen();
             }
+
           default:
             return const Scaffold(
               body: SizedBox(

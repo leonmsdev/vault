@@ -6,8 +6,8 @@ import 'package:vault/widgets/styles/text_styles.dart';
 
 import '../widgets/widgets.dart';
 
-class MasterKey extends StatelessWidget {
-  const MasterKey({super.key});
+class VerifyEmail extends StatelessWidget {
+  const VerifyEmail({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +63,11 @@ class MasterKey extends StatelessWidget {
                             ),
                             const SizedBox(height: 25),
                             BgTextButton(
-                                lable: 'Resend email verification',
-                                onTap: () {})
+                                lable: 'Send email verification',
+                                onTap: () {
+                                  AuthService.firebase()
+                                      .sendEmailVerification();
+                                })
                           ],
                         ),
                       ),
@@ -98,7 +101,8 @@ class MasterKey extends StatelessWidget {
                           onTap: () {
                             AuthService.firebase().signOut();
                             context.go('/sign-in');
-                          })
+                          }),
+                      TextButton(onPressed: () {}, child: const Text('hello'))
                     ],
                   ),
                 ],
