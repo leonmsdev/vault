@@ -34,6 +34,7 @@ class MasterKey extends StatelessWidget {
                   Column(
                     children: [
                       Container(
+                        color: Colors.white,
                         decoration: BoxDecoration(
                           border: Border.all(color: ligthGrey),
                           borderRadius: BorderRadius.circular(20),
