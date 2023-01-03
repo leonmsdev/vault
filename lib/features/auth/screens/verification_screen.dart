@@ -21,7 +21,7 @@ class VerifyEmail extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Column(
                 children: [
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 40),
                   const Center(
                     child: TransparentLogo(),
                   ),

@@ -21,7 +21,7 @@ class MasterKey extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Column(
                 children: [
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 40),
                   const Center(
                     child: TransparentLogo(),
                   ),
@@ -34,8 +34,8 @@ class MasterKey extends StatelessWidget {
                   Column(
                     children: [
                       Container(
-                        color: Colors.white,
                         decoration: BoxDecoration(
+                          color: Colors.white,
                           border: Border.all(color: ligthGrey),
                           borderRadius: BorderRadius.circular(20),
                         ),
