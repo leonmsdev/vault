@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vault/controller/content_controller.dart';
@@ -19,7 +18,7 @@ class _BottomNavigationWidgetState
     final position = ref.watch(contentControllerProvider);
 
     return BottomNavigationBar(
-      onTap: (value) => onTap(value),
+      onTap: (value) => _onTap(value),
       currentIndex: position,
       items: const [
         BottomNavigationBarItem(
@@ -41,18 +40,18 @@ class _BottomNavigationWidgetState
     );
   }
 
-  void onTap(int index) {
-    ref.read(contentControllerProvider.notifier).setPosition(0);
+  void _onTap(int index) {
+    ref.read(contentControllerProvider.notifier).setPosition(index);
     switch (index) {
       case 0:
-        context.go('/home');
+        context.go('/');
         break;
       case 1:
-        context.go('/generator');
+        context.go('/generate');
         break;
 
       case 2:
-        context.go('/settings');
+        context.go('/setting');
         break;
     }
   }
