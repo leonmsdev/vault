@@ -1,6 +1,5 @@
+import 'package:go_router/go_router.dart';
 import 'package:vault/widgets/design.dart';
-
-import '../../../widgets/design_bottom_navigation.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,15 +11,20 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: const BottomNavigationWidget(),
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: const [
-              Text('Home Screen'),
-            ],
-          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Home Screen'),
+            const SizedBox(
+              height: 20,
+            ),
+            BgTextButton(
+                lable: 'Key Screen',
+                onTap: () => GoRouter.of(context).push('/keyDetail/1'))
+          ],
         ),
       ),
     );

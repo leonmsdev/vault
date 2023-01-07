@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/design_bottom_navigation.dart';
+
 class ContentControllerScreen extends StatefulWidget {
   final Widget child;
   const ContentControllerScreen({super.key, required this.child});
@@ -12,6 +14,9 @@ class ContentControllerScreen extends StatefulWidget {
 class _ContentControllerScreenState extends State<ContentControllerScreen> {
   @override
   Widget build(BuildContext context) {
-    return widget.child;
+    return Scaffold(
+      bottomNavigationBar: const BottomNavigationWidget(),
+      body: widget.child,
+    );
   }
 }
