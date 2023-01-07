@@ -5,7 +5,7 @@ import 'package:vault/features/auth/screens/master_key_screen.dart';
 import 'package:vault/features/auth/screens/sign_in_screen.dart';
 import 'package:vault/features/auth/screens/verification_screen.dart';
 import 'package:vault/features/auth/services/auth_service.dart';
-import 'package:vault/routing/router_config.dart';
+import 'package:vault/route/router_config.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -22,13 +22,23 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerStatefulWidget {
+  // This widget is the root the application.
   const MyApp({super.key});
 
   @override
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  @override
   Widget build(BuildContext context) {
+    final router = ref.watch(goRouterProvider);
+
     return MaterialApp.router(
-      routerConfig: router,
+      routeInformationParser: router.routeInformationParser,
+      routeInformationProvider: router.routeInformationProvider,
+      routerDelegate: router.routerDelegate,
       debugShowCheckedModeBanner: false,
       title: 'Flutter',
       theme: ThemeData(
