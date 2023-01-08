@@ -1,3 +1,4 @@
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vault/controller/content_controller.dart';
@@ -22,18 +23,18 @@ class _BottomNavigationWidgetState
       currentIndex: position,
       items: const [
         BottomNavigationBarItem(
-          activeIcon: Icon(Icons.home),
-          icon: Icon(Icons.home_outlined),
+          activeIcon: Icon(FlutterRemix.home_fill),
+          icon: Icon(FlutterRemix.home_line),
           label: "Home",
         ),
         BottomNavigationBarItem(
-          activeIcon: Icon(Icons.shield),
-          icon: Icon(Icons.shield_outlined),
+          activeIcon: Icon(FlutterRemix.shield_keyhole_fill),
+          icon: Icon(FlutterRemix.shield_keyhole_line),
           label: "Generator",
         ),
         BottomNavigationBarItem(
-          activeIcon: Icon(Icons.settings),
-          icon: Icon(Icons.settings_outlined),
+          activeIcon: Icon(FlutterRemix.settings_fill),
+          icon: Icon(FlutterRemix.settings_line),
           label: "Settings",
         )
       ],

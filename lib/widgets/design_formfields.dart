@@ -1,3 +1,4 @@
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vault/features/auth/screens/register_screen.dart';
 import 'package:vault/features/auth/services/validate_form.dart';
@@ -20,7 +21,7 @@ class BorderedFormField extends StatelessWidget {
         return validateEmail(value);
       },
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.email_outlined),
+        prefixIcon: const Icon(FlutterRemix.mail_line),
         labelText: 'Enter your email',
         labelStyle: const TextStyle(
           fontSize: 14,
@@ -63,17 +64,17 @@ class PwBorderedFormField extends StatefulWidget {
 }
 
 class _PwBorderedFormFieldState extends State<PwBorderedFormField> {
-  Icon currentIcon = const Icon(Icons.visibility_outlined);
+  Icon currentIcon = const Icon(FlutterRemix.eye_line);
   bool obscureText = true;
 
   changeIcon() {
     setState(() {
       if (obscureText == true) {
         obscureText = false;
-        currentIcon = const Icon(Icons.visibility_off_outlined);
+        currentIcon = const Icon(FlutterRemix.eye_off_line);
       } else {
         obscureText = true;
-        currentIcon = const Icon(Icons.visibility_outlined);
+        currentIcon = const Icon(FlutterRemix.eye_line);
       }
     });
   }
@@ -93,7 +94,7 @@ class _PwBorderedFormFieldState extends State<PwBorderedFormField> {
           },
           obscureText: obscureText,
           decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.lock_outline),
+            prefixIcon: const Icon(FlutterRemix.lock_2_line),
             labelText: widget.lable,
             labelStyle: const TextStyle(fontSize: 14, color: Colors.black),
             isDense: true,
