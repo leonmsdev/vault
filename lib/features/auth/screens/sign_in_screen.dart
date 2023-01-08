@@ -1,7 +1,9 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vault/features/auth/services/auth_service.dart';
 import 'package:vault/widgets/design_pw_reset.dart';
 
+import '../../../route/go_route_notifier.dart';
 import '../../../widgets/design.dart';
 import '../../../widgets/styles/text_styles.dart';
 import '../widgets/transparent_logo.dart';
@@ -180,10 +182,14 @@ class _SignInScreenState extends State<SignInScreen> {
                       ],
                     ),
                     const SizedBox(height: 30.0),
-                    BorderIconButton(
-                      lable: 'Google',
-                      img: 'lib/img/google.png',
-                      onTap: () async {},
+                    Consumer(
+                      builder: (context, ref, child) => BorderIconButton(
+                        lable: 'Google',
+                        img: 'lib/img/google.png',
+                        onTap: () {
+                          ref.read(goRouterNotifierProvider).isSignedIn = true;
+                        },
+                      ),
                     ),
                   ],
                 ),
