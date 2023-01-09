@@ -2,7 +2,6 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vault/controller/content_controller.dart';
-import 'package:vault/route/go_route_notifier.dart';
 import 'package:vault/widgets/design.dart';
 
 class BottomNavigationWidget extends ConsumerStatefulWidget {
