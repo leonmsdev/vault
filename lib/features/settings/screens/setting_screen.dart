@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vault/features/auth/services/auth_service.dart';
 import 'package:vault/route/go_route_notifier.dart';
 import 'package:vault/widgets/design.dart';
 
@@ -18,6 +19,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         const Text('Settings Screen'),
         TextButton(
             onPressed: () {
+              AuthService.firebase().signOut();
               ref.read(goRouterNotifierProvider).isSignedIn = false;
             },
             child: const Text('Log out'))

@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../route/go_route_notifier.dart';
 import 'design.dart';
 
 final List masterKeyInputs = [];
@@ -31,23 +31,25 @@ class OtpForm extends StatelessWidget {
           const SizedBox(
             height: 25,
           ),
-          BgTextButton(
-              lable: 'Enter',
-              onTap: () {
-                masterKeyInputs.clear();
-                formKey.currentState?.save();
-                if (masterKeyInputs.toString() == '[1, 2, 3, 4]') {
-                  context.go('/home');
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    generateSnackbar(
-                      text: 'Your input is wrong, please try again.',
-                      color: snackBarRed,
-                      icon: Icons.error_outline,
-                    ),
-                  );
-                }
-              }),
+          Consumer(
+            builder: (context, ref, child) => BgTextButton(
+                lable: 'Enter',
+                onTap: () {
+                  masterKeyInputs.clear();
+                  formKey.currentState?.save();
+                  if (masterKeyInputs.toString() == '[1, 2, 3, 4]') {
+                    ref.read(goRouterNotifierProvider).validMasterKey = true;
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      generateSnackbar(
+                        text: 'Your input is wrong, please try again.',
+                        color: snackBarRed,
+                        icon: Icons.error_outline,
+                      ),
+                    );
+                  }
+                }),
+          ),
         ],
       ),
     );

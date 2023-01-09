@@ -4,3 +4,6 @@ const String generate = 'generate';
 const String setting = 'setting';
 const String keyDetail = 'keyDetail';
 const String signIn = 'signIn';
+const String verify = 'verify';
+const String register = 'register';
+const String masterKey = 'masterKey';

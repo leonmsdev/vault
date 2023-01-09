@@ -43,6 +43,7 @@ class _BottomNavigationWidgetState
 
   void _onTap(int index) {
     ref.read(contentControllerProvider.notifier).setPosition(index);
+
     switch (index) {
       case 0:
         context.go('/');
@@ -54,6 +55,7 @@ class _BottomNavigationWidgetState
       case 2:
         context.go('/setting');
         break;
+      default:
     }
   }
 }

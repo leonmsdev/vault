@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vault/widgets/design.dart';
 import 'package:vault/widgets/styles/text_styles.dart';
+import '../../../route/go_route_notifier.dart';
 import '../services/auth_service.dart';
 import '../widgets/widgets.dart';
 
@@ -49,11 +50,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(height: 20),
                       Padding(
                         padding: const EdgeInsets.only(left: 25.0),
-                        child: GestureDetector(
-                          onTap: () => context.go('/sign-in'),
-                          child: const Icon(
-                            Icons.arrow_back_sharp,
-                            color: Colors.white,
+                        child: Consumer(
+                          builder: (context, ref, child) => GestureDetector(
+                            onTap: () => context.pop(),
+                            child: const Icon(
+                              Icons.arrow_back_sharp,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -109,59 +112,65 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 },
                               ),
                               const SizedBox(height: 35.0),
-                              BgTextButton(
-                                lable: 'Register Now',
-                                onTap: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    final email = _emailController.text;
-                                    final password = _pwController.text;
+                              Consumer(
+                                builder: (context, ref, child) => BgTextButton(
+                                  lable: 'Register Now',
+                                  onTap: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      final email = _emailController.text;
+                                      final password = _pwController.text;
 
-                                    try {
-                                      await AuthService.firebase().registerUser(
-                                        email: email,
-                                        password: password,
-                                      );
-                                      if (!mounted) return;
-                                      context.go('/sign-in');
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        generateSnackbar(
-                                            text:
-                                                'Registered, please sign in with your user.',
-                                            color: snackBarGreen,
-                                            icon: Icons.verified),
-                                      );
-                                    } catch (e) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        generateSnackbar(
-                                            text: 'An Error occured',
-                                            color: snackBarRed,
-                                            icon: Icons.error_outline),
-                                      );
+                                      try {
+                                        await AuthService.firebase()
+                                            .registerUser(
+                                          email: email,
+                                          password: password,
+                                        );
+                                        if (!mounted) return;
+                                        context.pop();
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          generateSnackbar(
+                                              text:
+                                                  'Registered, please sign in with your user.',
+                                              color: snackBarGreen,
+                                              icon: Icons.verified),
+                                        );
+                                      } catch (e) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          generateSnackbar(
+                                              text: 'An Error occured',
+                                              color: snackBarRed,
+                                              icon: Icons.error_outline),
+                                        );
+                                      }
                                     }
-                                  }
-                                },
+                                  },
+                                ),
                               ),
                               const SizedBox(height: 10.0),
-                              GestureDetector(
-                                onTap: () => context.go('/sign-in'),
-                                child: RichText(
-                                  text: const TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: 'Already have an account, ',
-                                        style: TextStyle(
-                                          color: mediumGrey,
+                              Consumer(
+                                builder: (context, ref, child) =>
+                                    GestureDetector(
+                                  onTap: () => context.pop(),
+                                  child: RichText(
+                                    text: const TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: 'Already have an account, ',
+                                          style: TextStyle(
+                                            color: mediumGrey,
+                                          ),
                                         ),
-                                      ),
-                                      TextSpan(
-                                        text: 'sign in here.',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                      )
-                                    ],
+                                        TextSpan(
+                                          text: 'sign in here.',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
