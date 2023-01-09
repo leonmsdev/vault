@@ -13,15 +13,12 @@ import 'package:vault/features/settings/screens/setting_screen.dart';
 import 'package:vault/route/go_route_notifier.dart';
 import 'package:vault/route/named_route.dart';
 
-import '../features/auth/services/auth_service.dart';
-
 final GlobalKey<NavigatorState> _rootNavigator = GlobalKey(debugLabel: 'root');
 final GlobalKey<NavigatorState> _shellNavigator =
     GlobalKey(debugLabel: 'shell');
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final notifier = ref.read(goRouterNotifierProvider);
-  final user = AuthService.firebase().currentUser;
   bool isDuplicate = false;
 
   return GoRouter(

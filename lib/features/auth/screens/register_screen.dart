@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vault/widgets/design.dart';
 import 'package:vault/widgets/styles/text_styles.dart';
-import '../../../route/go_route_notifier.dart';
 import '../services/auth_service.dart';
 import '../widgets/widgets.dart';
 

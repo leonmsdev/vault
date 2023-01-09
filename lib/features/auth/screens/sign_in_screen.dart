@@ -1,9 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vault/features/auth/services/auth_service.dart';
-import 'package:vault/route/named_route.dart';
 import 'package:vault/widgets/design_pw_reset.dart';
-import 'dart:developer' as devtools show log;
 import '../../../route/go_route_notifier.dart';
 import '../../../widgets/design.dart';
 import '../../../widgets/styles/text_styles.dart';
@@ -133,7 +131,6 @@ class _SignInScreenState extends State<SignInScreen> {
                           Consumer(
                             builder: (context, ref, child) => GestureDetector(
                               onTap: () {
-                                print('regsitrer');
                                 GoRouter.of(context).push('/signIn/register');
                               },
                               child: RichText(
@@ -188,16 +185,9 @@ class _SignInScreenState extends State<SignInScreen> {
                       builder: (context, ref, child) => BorderIconButton(
                         lable: 'Google',
                         img: 'lib/img/google.png',
-                        onTap: () {
-                          print(ref.watch(goRouterNotifierProvider).isSignedIn);
-                        },
+                        onTap: () {},
                       ),
                     ),
-                    TextButton(
-                        onPressed: () {
-                          print(AuthService.firebase().currentUser.toString());
-                        },
-                        child: Text("data"))
                   ],
                 ),
               ),
