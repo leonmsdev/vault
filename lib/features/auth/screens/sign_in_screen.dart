@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vault/features/auth/services/auth_service.dart';
 import 'package:vault/widgets/design_pw_reset.dart';
-
 import '../../../route/go_route_notifier.dart';
 import '../../../widgets/design.dart';
 import '../../../widgets/styles/text_styles.dart';
@@ -91,66 +90,68 @@ class _SignInScreenState extends State<SignInScreen> {
                             ],
                           ),
                           const SizedBox(height: 25.0),
-                          BgTextButton(
-                            lable: 'Sign In',
-                            onTap: () async {
-                              if (_formKey.currentState!.validate()) {
-                                final email = _emailController.text;
-                                final password = _pwController.text;
+                          Consumer(
+                            builder: (context, ref, child) => BgTextButton(
+                              lable: 'Sign In',
+                              onTap: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  final email = _emailController.text;
+                                  final password = _pwController.text;
 
-                                try {
-                                  await AuthService.firebase()
-                                      .signIn(
-                                    email: email,
-                                    password: password,
-                                  )
-                                      .whenComplete(() async {
-                                    var user =
-                                        AuthService.firebase().currentUser;
-                                    if (user != null) {
-                                      if (user.isEmailVerified) {
-                                        context.go('/master-key');
-                                      } else if (!user.isEmailVerified) {
-                                        context.go('/verify-email');
-                                      }
-                                    }
-                                  });
+                                  try {
+                                    await AuthService.firebase().signIn(
+                                      email: email,
+                                      password: password,
+                                    );
+                                    if (!mounted) return;
 
-                                  if (!mounted) return;
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    generateSnackbar(
-                                        text: 'You are successfuly signed in.',
-                                        color: snackBarGreen,
-                                        icon: Icons.verified),
-                                  );
-                                } catch (e) {
-                                  generateSnackbar(
-                                      text: 'An error occured',
-                                      color: snackBarRed,
-                                      icon: Icons.error_outline);
+                                    ref
+                                        .read(goRouterNotifierProvider)
+                                        .isSignedIn = true;
+                                    GoRouter.of(context).push('/');
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      generateSnackbar(
+                                          text:
+                                              'You are successfuly signed in.',
+                                          color: snackBarGreen,
+                                          icon: Icons.verified),
+                                    );
+                                  } catch (e) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      generateSnackbar(
+                                          text: 'An error occured',
+                                          color: snackBarRed,
+                                          icon: Icons.error_outline),
+                                    );
+                                  }
                                 }
-                              }
-                            },
+                              },
+                            ),
                           ),
                           const SizedBox(height: 10.0),
-                          GestureDetector(
-                            onTap: () => context.go('/sign-in/register'),
-                            child: RichText(
-                              text: const TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: 'Dont have an account, ',
-                                    style: TextStyle(
-                                      color: mediumGrey,
+                          Consumer(
+                            builder: (context, ref, child) => GestureDetector(
+                              onTap: () {
+                                GoRouter.of(context).push('/signIn/register');
+                              },
+                              child: RichText(
+                                text: const TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Dont have an account, ',
+                                      style: TextStyle(
+                                        color: mediumGrey,
+                                      ),
                                     ),
-                                  ),
-                                  TextSpan(
-                                    text: 'sign up for free',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  )
-                                ],
+                                    TextSpan(
+                                      text: 'sign up for free',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -186,9 +187,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       builder: (context, ref, child) => BorderIconButton(
                         lable: 'Google',
                         img: 'lib/img/google.png',
-                        onTap: () {
-                          ref.read(goRouterNotifierProvider).isSignedIn = true;
-                        },
+                        onTap: () {},
                       ),
                     ),
                   ],

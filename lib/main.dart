@@ -1,10 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vault/features/auth/screens/master_key_screen.dart';
-import 'package:vault/features/auth/screens/sign_in_screen.dart';
-import 'package:vault/features/auth/screens/verification_screen.dart';
-import 'package:vault/features/auth/services/auth_service.dart';
 import 'package:vault/route/router_config.dart';
 import 'firebase_options.dart';
 
@@ -48,37 +44,37 @@ class _MyAppState extends ConsumerState<MyApp> {
   }
 }
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+// class MainScreen extends StatelessWidget {
+//   const MainScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: AuthService.firebase().initialize(),
-      builder: (context, snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.done:
-            final user = AuthService.firebase().currentUser;
-            if (user != null) {
-              if (user.isEmailVerified) {
-                return const MasterKey();
-              } else {
-                return const VerifyEmail();
-              }
-            } else {
-              return const SignInScreen();
-            }
+//   @override
+//   Widget build(BuildContext context) {
+//     return FutureBuilder(
+//       future: AuthService.firebase().initialize(),
+//       builder: (context, snapshot) {
+//         switch (snapshot.connectionState) {
+//           case ConnectionState.done:
+//             final user = AuthService.firebase().currentUser;
+//             if (user != null) {
+//               if (user.isEmailVerified) {
+//                 return const MasterKey();
+//               } else {
+//                 return const VerifyEmail();
+//               }
+//             } else {
+//               return const SignInScreen();
+//             }
 
-          default:
-            return const Scaffold(
-              body: SizedBox(
-                height: 50,
-                width: 50,
-                child: CircularProgressIndicator(),
-              ),
-            );
-        }
-      },
-    );
-  }
-}
+//           default:
+//             return const Scaffold(
+//               body: SizedBox(
+//                 height: 50,
+//                 width: 50,
+//                 child: CircularProgressIndicator(),
+//               ),
+//             );
+//         }
+//       },
+//     );
+//   }
+// }

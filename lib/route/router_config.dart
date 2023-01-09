@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vault/controller/ui/content_controller_screen.dart';
+import 'package:vault/features/auth/screens/master_key_screen.dart';
+import 'package:vault/features/auth/screens/register_screen.dart';
 import 'package:vault/features/auth/screens/sign_in_screen.dart';
+import 'package:vault/features/auth/screens/verification_screen.dart';
 import 'package:vault/features/generator/screens/generator_screen.dart';
 import 'package:vault/features/home/screens/home_screen.dart';
 import 'package:vault/features/key/key_screen.dart';
@@ -15,22 +18,28 @@ final GlobalKey<NavigatorState> _shellNavigator =
     GlobalKey(debugLabel: 'shell');
 
 final goRouterProvider = Provider<GoRouter>((ref) {
-  bool isDuplicate = false;
   final notifier = ref.read(goRouterNotifierProvider);
+  bool isDuplicate = false;
 
   return GoRouter(
     navigatorKey: _rootNavigator,
     initialLocation: '/',
     refreshListenable: notifier,
-    redirect: (context, state) {
-      final isSignedIn = notifier.isSignedIn;
-      final isGoingToSignIn = state.subloc == '/signIn';
 
-      if (!isSignedIn && !isGoingToSignIn && !isDuplicate) {
+    redirect: (context, state) {
+      final isLoggedIn = notifier.isSignedIn;
+      final isGoingToLogin = state.subloc == '/signIn';
+      final isGoingToRegister = state.subloc == '/signIn/register';
+
+      if (!isLoggedIn &&
+          !isGoingToLogin &&
+          !isDuplicate &&
+          !isGoingToRegister) {
         isDuplicate = true;
         return '/signIn';
       }
-      if (isGoingToSignIn && isGoingToSignIn && !isDuplicate) {
+
+      if (isGoingToLogin && !isGoingToRegister && !isDuplicate) {
         isDuplicate = true;
         return '/';
       }
@@ -41,18 +50,41 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 
       return null;
     },
+
     routes: [
-      GoRoute(
-        path: '/signIn',
-        name: signIn,
-        builder: (context, state) => SignInScreen(key: state.pageKey),
-      ),
       GoRoute(
         path: '/home',
         name: root,
         builder: (context, state) => HomeScreen(
           key: state.pageKey,
         ),
+      ),
+      GoRoute(
+          path: '/signIn',
+          name: signIn,
+          builder: (context, state) {
+            return SignInScreen(key: state.pageKey);
+          },
+          routes: [
+            GoRoute(
+              path: 'register',
+              name: register,
+              builder: (context, state) {
+                return RegisterScreen(
+                  key: state.pageKey,
+                );
+              },
+            ),
+          ]),
+      GoRoute(
+        path: '/verify',
+        name: verify,
+        builder: (context, state) => VerifyEmail(key: state.pageKey),
+      ),
+      GoRoute(
+        path: '/masterKey',
+        name: masterKey,
+        builder: (context, state) => MasterKey(key: state.pageKey),
       ),
       ShellRoute(
           navigatorKey: _shellNavigator,
@@ -64,9 +96,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 name: home,
                 pageBuilder: (context, state) {
                   return NoTransitionPage(
-                      child: HomeScreen(
-                    key: state.pageKey,
-                  ));
+                    child: HomeScreen(
+                      key: state.pageKey,
+                    ),
+                  );
                 },
                 routes: [
                   GoRoute(
