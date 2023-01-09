@@ -10,8 +10,14 @@ class GeneratorScreen extends StatefulWidget {
 class _GeneratorScreenState extends State<GeneratorScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Generator Screen'),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text('Generator Screen'),
+        Form(
+          child: TextFormField(),
+        ),
+      ],
     );
   }
 }

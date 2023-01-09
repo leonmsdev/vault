@@ -118,10 +118,12 @@ class _SignInScreenState extends State<SignInScreen> {
                                           icon: Icons.verified),
                                     );
                                   } catch (e) {
-                                    generateSnackbar(
-                                        text: 'An error occured',
-                                        color: snackBarRed,
-                                        icon: Icons.error_outline);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      generateSnackbar(
+                                          text: 'An error occured',
+                                          color: snackBarRed,
+                                          icon: Icons.error_outline),
+                                    );
                                   }
                                 }
                               },
